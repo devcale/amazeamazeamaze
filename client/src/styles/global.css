@@ -1,0 +1,393 @@
+:root {
+  --bg: #06080a;
+  --chassis: #151b20;
+  --chassis-hi: #232c33;
+  --chassis-lo: #0b0f12;
+  --panel: #0c1114;
+  --panel-2: #10171c;
+  --line: #2b363e;
+  --line-soft: #1a2228;
+  --cyan: #5fd7ff;
+  --cyan-2: #39b3d6;
+  --cyan-dim: #15485a;
+  --amber: #ffb547;
+  --amber-dim: #5a3d12;
+  --green: #5dff7a;
+  --green-dim: #15502a;
+  --red: #ff4d4d;
+  --red-dim: #5a1515;
+  --text: #cfe6ee;
+  --muted: #6f8794;
+  --font: ui-monospace, 'Cascadia Mono', 'SF Mono', Consolas, 'Liberation Mono', 'Courier New', monospace;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 13px;
+  line-height: 1.35;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: var(--cyan);
+}
+
+/* Textura de fondo: rejilla tenue + viñeta, nada de fotografías. */
+.chassis-bg {
+  min-height: 100%;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(95, 215, 255, 0.05), transparent 60%),
+    repeating-linear-gradient(0deg, transparent 0 23px, rgba(255, 255, 255, 0.012) 23px 24px),
+    repeating-linear-gradient(90deg, transparent 0 23px, rgba(255, 255, 255, 0.012) 23px 24px),
+    linear-gradient(180deg, #0a0e11, var(--bg));
+}
+
+/* ---- Paneles -------------------------------------------------------------- */
+.panel {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 40%),
+    var(--chassis);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.6),
+    0 2px 0 rgba(0, 0, 0, 0.5),
+    0 10px 30px rgba(0, 0, 0, 0.45);
+  padding: 14px 12px 12px;
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: -14px -12px 10px;
+  padding: 5px 12px;
+  background: linear-gradient(180deg, var(--chassis-hi), var(--chassis));
+  border-bottom: 1px solid var(--line);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.panel-title strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.panel-title .code {
+  color: var(--amber);
+  opacity: 0.8;
+  letter-spacing: 0.1em;
+}
+
+.screw {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #5b6a75, #222a30 60%, #0a0d10);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.screw::after {
+  content: '';
+  position: absolute;
+  inset: 3px 1px;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.7);
+  transform: rotate(var(--rot, 20deg));
+}
+
+.screw.tl {
+  top: 3px;
+  left: 3px;
+  --rot: 35deg;
+}
+.screw.tr {
+  top: 3px;
+  right: 3px;
+  --rot: -20deg;
+}
+.screw.bl {
+  bottom: 3px;
+  left: 3px;
+  --rot: 70deg;
+}
+.screw.br {
+  bottom: 3px;
+  right: 3px;
+  --rot: 10deg;
+}
+
+/* ---- Lámparas indicadoras ------------------------------------------------- */
+.lamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.lamp i {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: #1a2026;
+  border: 1px solid #000;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08);
+  transition: background 0.15s, box-shadow 0.15s;
+}
+
+.lamp.on-green i {
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green), inset 0 0 3px rgba(255, 255, 255, 0.7);
+}
+.lamp.on-amber i {
+  background: var(--amber);
+  box-shadow: 0 0 8px var(--amber), inset 0 0 3px rgba(255, 255, 255, 0.7);
+}
+.lamp.on-red i {
+  background: var(--red);
+  box-shadow: 0 0 8px var(--red), inset 0 0 3px rgba(255, 255, 255, 0.6);
+}
+.lamp.on-cyan i {
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan), inset 0 0 3px rgba(255, 255, 255, 0.7);
+}
+.lamp.blink i {
+  animation: blink 0.9s steps(2, start) infinite;
+}
+.lamp.on-green,
+.lamp.on-amber,
+.lamp.on-red,
+.lamp.on-cyan {
+  color: var(--text);
+}
+
+@keyframes blink {
+  to {
+    opacity: 0.35;
+  }
+}
+
+/* ---- Botones físicos ------------------------------------------------------ */
+.hw-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border-radius: 2px;
+  border: 1px solid #000;
+  background: linear-gradient(180deg, #2b353d, #1a2227 55%, #141a1f);
+  color: var(--text);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.5),
+    0 2px 0 #000,
+    0 3px 6px rgba(0, 0, 0, 0.5);
+  transition: transform 0.05s, box-shadow 0.05s, filter 0.15s;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.hw-btn:hover {
+  filter: brightness(1.1);
+}
+.hw-btn:active,
+.hw-btn.pressed {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 2px 6px rgba(0, 0, 0, 0.6),
+    0 0 0 #000;
+}
+
+.hw-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: none;
+}
+
+.hw-btn.amber {
+  background: linear-gradient(180deg, #ffc973, #e0901f 50%, #b36f0e);
+  color: #241400;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.hw-btn.amber.lit {
+  box-shadow:
+    0 0 18px rgba(255, 181, 71, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 2px 0 #000;
+}
+
+.hw-btn.red {
+  background: linear-gradient(180deg, #ff7a7a, #d63030 50%, #8e1717);
+  color: #fff1f1;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.hw-btn.green {
+  background: linear-gradient(180deg, #8dffa2, #2fbf4e 50%, #1b7f33);
+  color: #03230b;
+}
+
+.hw-btn.cyan-outline {
+  border-color: var(--cyan-dim);
+  color: var(--cyan);
+}
+
+.hw-btn .key {
+  display: inline-block;
+  min-width: 18px;
+  padding: 1px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.35);
+  font-size: 10px;
+  text-align: center;
+}
+
+/* ---- Pequeñas utilidades -------------------------------------------------- */
+.mono-label {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.readout {
+  font-variant-numeric: tabular-nums;
+  color: var(--cyan);
+}
+
+.hr {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+  margin: 10px 0;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle .sw {
+  width: 28px;
+  height: 14px;
+  border-radius: 2px;
+  background: #0b0f12;
+  border: 1px solid #000;
+  position: relative;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.toggle .sw::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 12px;
+  height: 10px;
+  background: linear-gradient(180deg, #4b5964, #28323a);
+  transition: left 0.12s;
+}
+
+.toggle.on .sw::after {
+  left: 13px;
+  background: linear-gradient(180deg, var(--amber), #b36f0e);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* Fader de volumen */
+input[type='range'].fader {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 22px;
+  background: transparent;
+}
+input[type='range'].fader::-webkit-slider-runnable-track {
+  height: 6px;
+  background: linear-gradient(90deg, var(--cyan-dim), var(--cyan-2));
+  border: 1px solid #000;
+  border-radius: 1px;
+}
+input[type='range'].fader::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 22px;
+  margin-top: -9px;
+  background: linear-gradient(180deg, #4b5964, #1b2228);
+  border: 1px solid #000;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 3px #000;
+}
+input[type='range'].fader::-moz-range-track {
+  height: 6px;
+  background: linear-gradient(90deg, var(--cyan-dim), var(--cyan-2));
+  border: 1px solid #000;
+}
+input[type='range'].fader::-moz-range-thumb {
+  width: 14px;
+  height: 22px;
+  background: linear-gradient(180deg, #4b5964, #1b2228);
+  border: 1px solid #000;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lamp.blink i {
+    animation: none;
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "_comment": "Catálogo del AUDIO BANK. Para añadir un sonido: copia el archivo a client/public/audio/ y agrega una entrada aquí. 'file' es solo el nombre del archivo (sin rutas). 'key' es una tecla única (una letra o dígito). 'demo': true marca sonidos de demostración generados por scripts/generate-demo-sounds.mjs; quítalo al reemplazar por grabaciones reales.",
+  "sounds": [
+    { "id": "saludo",      "name": "Saludo",      "file": "demo-saludo.wav",      "key": "q", "category": "social",   "color": "#5fd7ff", "demo": true },
+    { "id": "si",          "name": "Sí",          "file": "demo-si.wav",          "key": "w", "category": "respuesta", "color": "#5dff7a", "demo": true },
+    { "id": "no",          "name": "No",          "file": "demo-no.wav",          "key": "e", "category": "respuesta", "color": "#ff5c5c", "demo": true },
+    { "id": "pregunta",    "name": "Pregunta",    "file": "demo-pregunta.wav",    "key": "r", "category": "social",   "color": "#ffc857", "demo": true },
+    { "id": "alegria",     "name": "Alegría",     "file": "demo-alegria.wav",     "key": "a", "category": "emoción",  "color": "#5dff7a", "demo": true },
+    { "id": "alerta",      "name": "Alerta",      "file": "demo-alerta.wav",      "key": "s", "category": "sistema",  "color": "#ff5c5c", "demo": true },
+    { "id": "tristeza",    "name": "Tristeza",    "file": "demo-tristeza.wav",    "key": "d", "category": "emoción",  "color": "#7fa7ff", "demo": true },
+    { "id": "celebracion", "name": "Celebración", "file": "demo-celebracion.wav", "key": "f", "category": "emoción",  "color": "#ffc857", "demo": true }
+  ]
+}
